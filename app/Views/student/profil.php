@@ -27,7 +27,11 @@
                 </div>
                 <div class="row no-gutters align-items-center">
                     <div class="col-md-4 p-2">
-                        <img src="/img/default.svg" alt="foto profil" class="card-img">
+                        <img src="<?= base_url(); ?>/img/<?php if (session()->get('user_jk') === "laki-laki") {
+                                                                echo 'default.svg';
+                                                            } else {
+                                                                echo 'undraw_profile_1.svg';
+                                                            } ?>" alt="foto profil" class="card-img">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">

@@ -24,6 +24,22 @@ if ($results) {
     <meta name="msapplication-TileImage" content="<?= base_url(); ?>/images/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#FFFFFF">
 
+    <style>
+        .overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            cursor: progress;
+        }
+    </style>
+
     <!-- Bootstrap CSS -->
     <link href="<?= base_url(); ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,16 +62,17 @@ if ($results) {
 </head>
 
 <body>
+    <div class="overlay"></div>
     <!-- Navbar -->
     <div>
-        <p>Tolong aktifkan PWA dengan menekan tombol ini, untuk performa web lebih baik</p>
+        <p>Tolong aktifkan PWA dengan menekan tombol dibawah ini, untuk performa web lebih baik</p>
         <button id="enable">Aktifkan PWA</button>
     </div>
     <section>
         <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white pt-lg-40 pb-lg-40 pt-30 pb-50">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="<?= base_url(); ?>/img/logo/poltek.jpg" alt="logo_poltekgt" width="60px">
+                    <img src="<?= base_url(); ?>/img/logo/poltek.png" alt="logo_poltekgt" width="60px">
                     <!-- <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="60" height="60">
                             <circle cx="30" cy="30" r="30" fill="#3546AB" />
@@ -85,7 +102,7 @@ if ($results) {
                             <a class="nav-link" href="#ip-tertinggi">IP Tertinggi</a>
                         </li>
                         <li class="nav-item my-auto me-lg-20">
-                            <a class="nav-link" href="#baca-berita">Baca Berita</a>
+                            <a class="nav-link" href="#absen-magang">Absen Magang</a>
                         </li>
                         <li class="nav-item my-auto">
                             <a class="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill" href="<?= base_url('login'); ?>" role="button">Masuk</a>
@@ -122,7 +139,7 @@ if ($results) {
                             <img src="<?= base_url() ?>/img/gedung1.jpg" class="img-fluid rounded" alt="Gedung 1">
                             <div class="card left-card position-absolute border-0">
                                 <div class="d-flex align-items-center mb-16 gap-3">
-                                    <img src="<?= base_url(); ?>/img/logo/poltek.jpg" width="40" height="40" class="rounded-pill" alt="">
+                                    <img src="<?= base_url(); ?>/img/logo/poltek.jpg" width="40" height="40" class="rounded-pill" alt="#">
                                     <div>
                                         <p class="text-xs fw-medium color-palette-1 m-0">Politeknik <br>Gajah Tunggal</p>
                                         <p class="text-xs fw-light color-palette-2 m-0">Tangerang</p>
@@ -192,8 +209,8 @@ if ($results) {
                     </a>
 
                 </div>
-                <div class="featured-game-card position-relative">
-                    <a href="#cari-jurnal">
+                <div class="featured-game-card position-relative" id="cari-jurnal">
+                    <a href="#">
                         <div class="blur-sharp">
                             <img src="<?= base_url(); ?>/img/illustration/cari-jurnal.svg" width="205" height="270" alt="">
                         </div>
@@ -256,9 +273,9 @@ if ($results) {
 
                 </div>
                 <div class="featured-game-card position-relative">
-                    <a href="#">
+                    <a href="<?= base_url('login'); ?>">
                         <div class="blur-sharp">
-                            <img src="<?= base_url(); ?>/img/illustration/baca-berita.svg" width="205" height="270" alt="">
+                            <img src="<?= base_url(); ?>/img/illustration/absen-magang.svg" width="205" height="270" alt="">
                         </div>
                         <div class="cover position-absolute bottom-0 m-32">
                             <div class="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -268,8 +285,8 @@ if ($results) {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="fw-semibold text-dark text-xl m-0">Baca Berita</p>
-                                    <p class="fw-light text-dark m-0">Coming Soon</p>
+                                    <p class="fw-semibold text-dark text-xl m-0">Absen Magang</p>
+                                    <p class="fw-light text-dark m-0">Existing</p>
                                 </div>
                             </div>
                         </div>
@@ -366,7 +383,32 @@ if ($results) {
         </div>
     </section>
 
+    <section class="featured-game pt-50 pb-50">
+        <div class="container-fluid">
+            <h2 class="text-4xl fw-bold color-palette-1 mb-10">Kritik & Saran
+            </h2>
+            <div class="row">
+                <form name="submit-to-google-sheet">
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="kritik">Kritik</label>
+                            <textarea class="form-control" id="kritik" rows="3" name="kritik" placeholder="Tolong kritik kami"></textarea>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="saran">Saran</label>
+                            <textarea class="form-control" id="saran" rows="3" name="saran" placeholder="Berikan saran yang membangun"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+                </form>
+            </div>
 
+            <p class="mt-2 "><a href="https://docs.google.com/spreadsheets/d/1ffYIvG8cFcApY_ZnNc61Al1PlT14L3HBHtIoxapHlnw/edit?usp=sharing" target="_blank">Klik disini untuk melihat kritik dan saran</a></p>
+        </div>
+        </div>
+    </section>
 
     <!-- Reached -->
     <!-- <section class="reached pt-50 pb-50">
@@ -427,7 +469,7 @@ if ($results) {
                 <div class="row">
                     <div class="col-lg-4 text-lg-start text-center">
                         <a href="" class="mb-30">
-                            <img src="<?= base_url(); ?>/img/logo/poltek.jpg" alt="logo poltek gt" width="60">
+                            <img src="<?= base_url(); ?>/img/logo/poltek.png" alt="logo poltek gt" width="60">
                         </a>
                         <p class="mt-30 text-lg color-palette-1 mb-30">Politeknik Gajah Tunggal</p>
                         <p class="mt-30 text-lg color-palette-1 mb-10">Copyright <?= date('Y'); ?>. All Rights Reserved.</p>
@@ -439,17 +481,17 @@ if ($results) {
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">Company</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-6">
-                                        <a href="https://poltek-gt.ac.id/v2/" class="text-lg color-palette-1 text-decoration-none">About Us</a>
+                                        <a href="https://poltek-gt.ac.id/v2/" target="_blank" class="text-lg color-palette-1 text-decoration-none">About Us</a>
                                     </li>
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Press
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Press
                                             Release</a>
                                     </li>
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Terms of Use</a>
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Terms of Use</a>
                                     </li>
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Privacy &
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Privacy &
                                             Policy</a>
                                     </li>
                                 </ul>
@@ -458,15 +500,15 @@ if ($results) {
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">Support</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Refund
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Refund
                                             Policy</a>
                                     </li>
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Unlock
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Unlock
                                             Rewards</a>
                                     </li>
                                     <li class="mb-6">
-                                        <a href="" class="text-lg color-palette-1 text-decoration-none">Live
+                                        <a href="#" class="text-lg color-palette-1 text-decoration-none">Live
                                             Chatting</a>
                                     </li>
                                 </ul>
@@ -543,7 +585,7 @@ if ($results) {
                 })
                 .then(response => response.json())
                 .then(result => {
-                    $('#top3-card').html("")
+                    $('#top3-card').html("#")
                     if (result.status === "ok") {
                         let student = result.data;
 
@@ -559,6 +601,38 @@ if ($results) {
                     }
                 }).catch(e => $('#top3-card').html('<h5 class="text-center">Data tidak ditemukan : ' + e + '</h5>'))
 
+        })
+
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzcUtWzo2LsXXatUSJjqnnhkSzI_F99c5emG_pTivJqfhYk7_0/exec'
+        const form = document.forms['submit-to-google-sheet']
+
+        form.addEventListener('submit', e => {
+            $('.overlay').css('display', 'block');
+            e.preventDefault()
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => {
+                    $('.overlay').css('display', 'none');
+                    if (response.ok) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Kritik dan Saran Berhasil disubmit',
+                            icon: 'success',
+                            // confirmButtonText: 'Cool',
+                        })
+                    } else if (!response.ok) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Data Gagal disubmit',
+                            icon: 'error',
+                            // confirmButtonText: 'Cool',
+                        });
+                    }
+                })
+                .catch(error => console.error('Error!', error.message))
         })
     </script>
 

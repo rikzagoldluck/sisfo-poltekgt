@@ -17,6 +17,12 @@ $("button[name=func]").click(function(e){
         data,
         'success'
       )
+    } else{
+      Swal.fire({
+        title: 'Error!',
+        text: 'Data Gagal disubmit',
+        icon: 'error',
+    });
     }
   });
 });
@@ -69,16 +75,32 @@ function hideSpinner() {
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.")
+      Swal.fire({
+        title: 'Caution!',
+        text: 'User denied the request for Geolocation. Please allow permission for doing success presence',
+        icon: 'error',
+    });
       break;
     case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.")
+      Swal.fire({
+        title: 'Caution!',
+        text: 'Location information is unavailable.',
+        icon: 'error',
+    });
       break;
     case error.TIMEOUT:
-      alert("The request to get user location timed out.")
+      Swal.fire({
+        title: 'Caution!',
+        text: 'The request to get user location timed out.',
+        icon: 'error',
+    });
       break;
     case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.")
+      Swal.fire({
+        title: 'Caution!',
+        text: 'An unknown error occurred.',
+        icon: 'error',
+    });
       break;
   }
 }
