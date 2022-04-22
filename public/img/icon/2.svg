@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="mask0-icon2" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
-                                <circle cx="40" cy="40" r="40" fill="#D7D7F8" />
-                            </mask>
-                            <g mask="url(#mask0-icon2)">
-                                <circle cx="40" cy="40" r="40" fill="#D7D7F8" />
-                                <rect x="-14" y="16" width="62" height="82" rx="16" fill="#695DE9" />
-                                <path d="M32 36H5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M27 45L9 45" stroke="#B7B0F4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                                <rect x="56" y="37" width="49" height="75" rx="16" fill="#2B2467" />
-                                <path d="M97 50H70" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M92 59L74 59" stroke="#6B63AC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                            </g>
-                        </svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" viewBox="0 0 80 80"><mask id="mask0-icon2" width="80" height="80" x="0" y="0" mask-type="alpha" maskUnits="userSpaceOnUse"><circle cx="40" cy="40" r="40" fill="#D7D7F8"/></mask><g mask="url(#mask0-icon2)"><circle cx="40" cy="40" r="40" fill="#D7D7F8"/><rect width="62" height="82" x="-14" y="16" fill="#695DE9" rx="16"/><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M32 36H5"/><path stroke="#B7B0F4" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M27 45L9 45"/><rect width="49" height="75" x="56" y="37" fill="#2B2467" rx="16"/><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M97 50H70"/><path stroke="#6B63AC" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M92 59L74 59"/></g></svg>
