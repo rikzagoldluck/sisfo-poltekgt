@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\AbsenMagangModel;
 use App\Models\EvalDosenModel;
 use App\Models\NilaiModel;
 use App\Models\NilaiPerMKModel;
 use App\Models\StudentModel;
 use App\Models\PoinModel;
+use App\Models\SiswaMagangModel;
 
 class Student extends BaseController
 {
@@ -120,14 +122,99 @@ class Student extends BaseController
 
         return view('student/survey', $data);
     }
+
     public function presensi_magang()
     {
-        $student = new StudentModel();
+        $student = new SiswaMagangModel();
 
+        $nim = $this->nim;
         $data = [
             "title" => "Presensi Magang",
-            // "student" => $student->getStudent($this->nim)
+            "student" => $student->find($nim)
         ];
+
+        if (!$data['student']) {
+            return view('errors/_404_nim', ['title' => '404']);
+        }
+
+        // dd($data);
         return view('student/presensi-magang', $data);
+    }
+
+    public function insert_absen()
+    {
+        $absen_table = new AbsenMagangModel();
+        $student = new SiswaMagangModel();
+
+        $nim = $this->nim;
+        $data1 = [
+            "title" => "Presensi Magang",
+            "student" => $student->find($nim)
+        ];
+
+        $data = $this->request->getRawInput();
+        $time_now = date("H:i:s");
+
+        if ($data['func'] === "PULANG") {
+            $sql_pulang = 'UPDATE dataabsen SET PULANG = ' . $absen_table->escape($time_now) . ' WHERE NIM =  ' . $absen_table->escape($data['NIM']) . ' AND TANGGAL = ' . $absen_table->escape($data['TANGGAL']);
+            $result = $absen_table->query($sql_pulang);
+
+            if ($result) $this->session->setFlashdata('msg', 'Presensi pulang berhasil');
+            else $this->session->setFlashdata('msg', 'Presensi pulang gagal');
+        }
+
+        if ($data['func'] === "Simpan") {
+            $data['MASUK'] = $time_now;
+            $data['PULANG'] = 'BP';
+
+            if ($data['KET'] === 'H') {
+                if (date('H') > 9) {
+                    $data['KET'] = 'HT';
+                }
+            }
+
+            $sql_cek = 'SELECT NIM, TANGGAL FROM dataabsen WHERE NIM = ' . $absen_table->escape($data['NIM']) . ' AND TANGGAL = ' . $absen_table->escape($data['TANGGAL']);
+            $result = $absen_table->query($sql_cek)->getResultArray();
+
+
+            if (count($result) > 0) {
+                $this->session->setFlashdata('msg', 'Anda sudah melakukan presensi hari ini');
+                return view('student/presensi-magang', $data1);
+            }
+
+
+            unset($data['func']);
+            $absen_table->insert($data);
+            $this->session->setFlashdata('msg', 'Presensi masuk berhasil');
+        }
+        // dd($data);
+        return view('student/presensi-magang', $data1);
+    }
+
+    public function migrate()
+    {
+        $model = new AbsenMagangModel();
+        $res = $model->findAll();
+        $data = array("student" => $res);
+        $url = 'https://script.google.com/macros/s/AKfycbzQYUPItoLv3cas2WfBYul6_XPby0xnHCma_2yQl-6mD-Au7mVByhi9AzUD0peCF1Zh/exec';
+
+        $postdata = json_encode($data);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($result);
+        if ($response->status === 'ok') {
+            return json_encode(array("status" => "ok"));
+        } else {
+            return json_encode(array("status" => "gagal"));
+        }
     }
 }

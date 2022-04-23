@@ -1,0 +1,10 @@
+POST https://script.google.com/macros/s/AKfycbwkAJfEGtZeq3BysU7eEB7BaV9AML6Ls_Jmd6bu5lw99VxUiNQ/exec HTTP/1.1
+content-type: application/json
+
+{
+"Products":[
+              {"Name":"Darkness Pump Large", "Category":"Accessories", "Brand":"Darkness", "Type":"Stock", "CostingMethod":"FIFO", "DropShipMode":"No Drop Ship", "DefaultLocation":"Toronto"},
+              {"Name":"Apple iPhone", "Category":"Gadget", "Brand":"Apple", "Type":"Stock", "CostingMethod":"FIFO", "DropShipMode":"No Drop Ship", "DefaultLocation":"California"},
+              {"Name":"Samsung Galaxy S21", "Category":"Gadget", "Brand":"Samsung", "Type":"Stock", "CostingMethod":"FIFO", "DropShipMode":"No Drop Ship", "DefaultLocation":"South Korea"}
+            ]
+  }

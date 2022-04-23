@@ -28,9 +28,8 @@ function startPwa(firstStart) {
 		.catch(err => {
 			console.error("Registration failed:", err);
 		}); 
-        
 
-        
+		
 	});
 
 	window.addEventListener("beforeinstallprompt", (e) => {
@@ -60,3 +59,4 @@ function startPwa(firstStart) {
 	// 	});
 	// }
 }
+

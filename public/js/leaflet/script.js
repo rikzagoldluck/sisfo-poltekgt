@@ -1,39 +1,12 @@
 var map = L.map('mapid');
 
+// function masuk() {
+//   localStorage.setItem('in', 'true');
+// }
 
-$("button[name=func]").click(function(e){
-  $('.overlay').css('display','block');
-  let nis = $("input[name=NIS]").val();
-  let jk =$("input[name=JK]").val();
-  let kls =$("input[name=KELAS]").val();
-  let geo =$("input[name=GEOCODE]").val();
-  let jarak =$("input[name=JARAK]").val();
-  
-  $.get(`https://script.google.com/macros/s/AKfycbwbOeDP22Us9LJydg0JrVKQCPqKmpm9bFfxIo29VFvecVT-iAWlfkWXpGLv_lMKxa1O/exec?ID=AKfycbwbOeDP22Us9LJydg0JrVKQCPqKmpm9bFfxIo29VFvecVT-iAWlfkWXpGLv_lMKxa1O&SH=DataAbsen&func=${this.value}&NIS=${nis}&JK=${jk}&KELAS=${kls}&GEOCODE=${geo}&JARAK=${jarak}`, function(data, status){
-    $('.overlay').css('display','none');
-    if (status === 'success') {
-      Swal.fire(
-        'Good job!',
-        data,
-        'success'
-      )
-    } else{
-      Swal.fire({
-        title: 'Error!',
-        text: 'Data Gagal disubmit',
-        icon: 'error',
-    });
-    }
-  });
-});
-
-function masuk() {
-  localStorage.setItem('in', 'true');
-}
-
-function pulang() {
-  localStorage.setItem('in', 'false');
-}
+// function pulang() {
+//   localStorage.setItem('in', 'false');
+// }
 
 function haversineDistance(coords1, coords2, isMiles) {
   function toRad(x) {
@@ -108,7 +81,7 @@ function showError(error) {
 function routing(lat, long) {
   L.Routing.control({
       waypoints: [
-          L.latLng(-6.1928049047693525, 106.56911148308775),
+          L.latLng(-6.1930289, 106.5690793),
           L.latLng(lat, long)
       ],
       routeWhileDragging: true,
@@ -117,22 +90,19 @@ function routing(lat, long) {
   .on('routesfound routingerror', hideSpinner)
   .addTo(map);
 
-  $('input[name=GEOCODE]').val(`${long}, ${lat}`)
-  let a = haversineDistance([106.56911148308775,-6.1928049047693525],[long, lat])
+  $('input[name=GEOCODE]').val(`${long.toFixed(6)}, ${lat.toFixed(6)}`)
+  let a = haversineDistance([106.5690793,-6.1930289],[long, lat])
+  // alert(`${long.toFixed(5)}, ${lat.toFixed(5)}`)
+  $('input[name=JARAK]').val((a * 1000).toFixed(2))
   
-  $('input[name=JARAK]').val(a * 1000)
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
 
-  if(localStorage.getItem('in') === 'true'){
-    $('button[value=Simpan]').prop('disabled', true);
-    $('button[value=PULANG]').prop('disabled', false);
-  }else if (localStorage.getItem('in') === 'false') {
-    $('button[value=PULANG]').prop('disabled', true);
-    $('button[value=Simpan]').prop('disabled', false);
-  } else{
-    $('button[value=PULANG]').prop('disabled', true);
-    $('button[value=Simpan]').prop('disabled', false);
-    
-  }
+  today = dd + '/' + mm + '/' + yyyy;
+
+  $('input[name=TANGGAL]').val(today)
 
 }
 
@@ -168,9 +138,6 @@ L.Routing.itinerary({
     summaryTemplate : '<h2>{name}</h2><h3 id="waktu">{time}, <span id="jarak">{distance}<></h3>'
     // containerClassName	: 'card card-outline-primary'
 });
-
-// let i = $('.leaflet-routing-container h3').val();
-//     alert(i);
 
 
 

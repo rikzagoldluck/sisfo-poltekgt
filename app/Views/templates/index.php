@@ -121,12 +121,9 @@ if (isset($dash)) {
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>/js/sb-admin-2.min.js"></script>
-
-    <?= $this->renderSection('page-js'); ?>
     <script src="<?= base_url(); ?>/sweetalert2@11.js"></script>
 
-    <!-- <script src="<?= base_url(); ?>/script.js">
-    </script> -->
+    <?= $this->renderSection('page-js'); ?>
 </body>
 
 </html>

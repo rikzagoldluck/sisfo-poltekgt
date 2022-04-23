@@ -3,14 +3,11 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <?php if (session()->getFlashdata('msg')) : ?>
-        <div class="alert alert-info"><?= session()->getFlashdata('msg') ?></div>
-    <?php endif; ?>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Penilaian Dosen</h1>
         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
     </div>
-
+    <div class="swal" data-swal="<?= session()->getFlashdata('msg'); ?>"></div>
     <form action="<?= base_url('student/insert_survey'); ?>" method="post">
         <!-- <input type="hidden" name="id" value="37261"> -->
 
@@ -37,4 +34,16 @@
 
 <?= $this->section('page-js'); ?>
 <script src="<?= base_url(); ?>/js/penilaian-dosen.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        let swal = $('.swal').data('swal');
+        if (swal) {
+            Swal.fire(
+                'Haloo!',
+                swal,
+                'info'
+            )
+        }
+    })
+</script>
 <?= $this->endSection(); ?>

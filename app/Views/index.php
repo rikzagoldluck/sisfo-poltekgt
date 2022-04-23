@@ -56,6 +56,40 @@ if ($results) {
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        async function m() {
+            const {
+                value: password
+            } = await Swal.fire({
+                title: 'Massukkan password',
+                input: 'password',
+                inputLabel: 'Password',
+                inputPlaceholder: 'Enter your password',
+                inputAttributes: {
+                    maxlength: 5,
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                }
+            })
+
+            if (password === "sisfo") {
+                $.getJSON('<?= base_url('student/migrate'); ?>', function(data) {
+                    console.log(data);
+                    if (data.status === "ok") {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Data absen berhasil di migrasi',
+                            icon: 'success',
+                        });
+                    }
+                })
+
+            } else {
+
+                Swal.fire(`Wrong!!!, Entered password: ${password}`)
+            }
+        }
+    </script>
 
 
     <title>SISFO PGT - <?= $title; ?></title>
@@ -102,7 +136,7 @@ if ($results) {
                             <a class="nav-link" href="#ip-tertinggi">IP Tertinggi</a>
                         </li>
                         <li class="nav-item my-auto me-lg-20">
-                            <a class="nav-link" href="#absen-magang">Absen Magang</a>
+                            <a class="nav-link" href="<?= base_url('login'); ?>">Absen Magang</a>
                         </li>
                         <li class="nav-item my-auto">
                             <a class="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill" href="<?= base_url('login'); ?>" role="button">Masuk</a>
@@ -122,7 +156,7 @@ if ($results) {
                         Halo mahasiswa,
                     </p>
                     <h1 class="header-title color-palette-1 fw-bold">
-                        Selamat datang, <span class="d-sm-inline d-none">anda</span><span class="d-sm-none d-inline">anda
+                        <a onclick="m()" class="text-decoration-none" style="color: inherit; cursor: inherit;">S</a>elamat datang, <span class="d-sm-inline d-none">anda</span><span class="d-sm-none d-inline">anda
                         </span><span class="underline-blue"> sedang mengakses</span> <br class="d-sm-block d-none"> <span class="underline-blue">WEB SISFO POLTEK GT</span>
                     </h1>
                     <p class="mt-30 mb-40 text-lg color-palette-1">
@@ -537,6 +571,8 @@ if ($results) {
         </footer>
     </section>
 
+    <div class="swal" data-swal="<?= session()->getFlashdata('msg'); ?>"></div>
+
 
     <script src="<?= base_url(); ?>/vendor/jquery/jquery.min.js"></script>
 
@@ -544,8 +580,7 @@ if ($results) {
     <script src="<?= base_url(); ?>/vendor/bootstrap/js/bootstrap5.bundle.min.js">
     </script>
     <script src="<?= base_url(); ?>/sweetalert2@11.js"></script>
-    <script src="<?= base_url(); ?>/script.js">
-    </script>
+    <script src="<?= base_url(); ?>/script.js"></script>
     <!-- AOS Animation -->
     <script>
         AOS.init();

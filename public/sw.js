@@ -206,35 +206,41 @@ self.addEventListener("install", function(event) {
 			return cache.addAll([
 				"/",
 				"/script.js",
+				"/img/"
 			]);
 		})
 	);
 });
 
 self.addEventListener("fetch", function(event) {
-	// event.respondWith(
-	// 	caches.open("pwa").then(function(cache) {
-            event.respondWith(
-                caches.match(event.request).then(function (response) {
-                    return response || fetch(event.request);
-                })
-            )
-			// return cache.match(event.request).then(function(response) {
-			// 	cache.addAll([event.request.url]);
+	event.respondWith(
+		caches.open("pwa").then(function(cache) {
+			// event.respondWith(
+			//   fetch(event.request).catch(function() {
+			// 	return caches.match(event.request);
+			//   })
+			// );
+            // event.respondWith(
+            //     caches.match(event.request).then(function (response) {
+            //         return response || fetch(event.request);
+            //     })
+            // )
+			return cache.match(event.request).then(function(response) {
+				cache.addAll([event.request.url]);
 
-			// 	if(response) {
-			// 		return response;
-			// 	}
+				if(response) {
+					return response;
+				}
 
-			// 	return fetch(event.request);
-			// });
+				return fetch(event.request);
+			});
 		})
-// 	);
-// })
+	)
+})
 
 // var cacheName = 'hello-pwa';
 // var filesToCache = [
-//   '/',
+//   '/',;
 //   '/index.html',
 //   '/css/style.css',
 //   '/js/main.js'
