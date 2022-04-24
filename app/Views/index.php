@@ -1,9 +1,3 @@
-<?php
-if ($results) {
-    $jurnals = $results->organic_results;
-    // $pagination = $results->pagination;
-}
-?>
 <!doctype html>
 <html lang="en">
 
@@ -243,7 +237,7 @@ if ($results) {
                     </a>
 
                 </div>
-                <div class="featured-game-card position-relative" id="cari-jurnal">
+                <div class="featured-game-card position-relative">
                     <a href="#">
                         <div class="blur-sharp">
                             <img src="<?= base_url(); ?>/img/illustration/cari-jurnal.svg" width="205" height="270" alt="">
@@ -333,9 +327,10 @@ if ($results) {
 
     <!-- IP Tertinggi - Feature -->
     <section id="ip-tertinggi" class="feature pt-50 pb-50">
-        <div class="container-fluid">
-            <h2 class="text-4xl fw-bold color-palette-1 text-center mb-30">3 peraih IP semester terbesar
+        <div class="container-fluid" data-aos="zoom-in-right">
+            <h2 class="text-4xl fw-bold color-palette-1 text-center mb-10">3 peraih IP semester terbesar
             </h2>
+            <h5 class="info-ip color-palette-1 text-center mb-30"></h5>
             <div class="row g-3 justify-content-center mb-30">
                 <div class="col-4 col-lg-3">
                     <select class="form-select form-select-sm select-prodi" id="selectip" aria-label=".form-select-sm example">
@@ -350,17 +345,6 @@ if ($results) {
                         <option selected>Pilih Tahun Masuk</option>
                     </select>
                 </div>
-                <!-- <div class="col-4 col-lg-3">
-                    <select class="form-select form-select-sm select-semester" aria-label=".form-select-sm example">
-                        <option selected>Pilih Semester</option>
-                        <option value="akademik1">1</option>
-                        <option value="akademik2">2</option>
-                        <option value="akademik3">3</option>
-                        <option value="akademik4">4</option>
-                        <option value="akademik5">5</option>
-                        <option value="akademik6">6</option>
-                    </select>
-                </div> -->
             </div>
             <div class="row gap-lg-0 gap-4" id="top3-card">
             </div>
@@ -369,56 +353,37 @@ if ($results) {
 
     <!-- Cari Jurnal -->
     <section class="featured-game pt-50 pb-50" id="cari-jurnal">
-        <div class="container-fluid">
+        <div class="container-fluid" data-aos="zoom-in-left">
             <h2 class="text-4xl fw-bold color-palette-1 mb-10">Cari Jurnal
             </h2>
             <div class="row g-3">
                 <div class="col-lg-8">
                     <form action="<?= base_url('home/cari_jurnal'); ?>" method="post">
                         <div class="input-group mb-3">
-                            <input name="searchbar-jurnal" type="text" class="form-control" placeholder="Ketik topik jurnal" aria-label="Ketik topik jurnal" aria-describedby="button-search-jurnal">
-                            <button class="btn btn-outline-primary" type="submit" id="button-search-jurnal"><i class="fas fa-search"></i></button>
+                            <input id="searchbar-jurnal" type="text" class="form-control" placeholder="Ketik topik jurnal" aria-label="Ketik topik jurnal" aria-describedby="button-search-jurnal">
+                            <button class="btn btn-outline-primary" type="button" id="button-search-jurnal"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="row row-cols-1 g-3 justify-content-center" data-aos="fade-up">
-                <?php if ($results) : ?>
-                    <?php foreach ($jurnals as $jurnal) : ?>
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= $jurnal->title; ?></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?= $jurnal->publication_info->summary; ?></h6>
-                                    <p class="card-text"><?= $jurnal->snippet; ?></p>
-                                    <a href="<?= $jurnal->link; ?>" class="card-link">Baca Jurnal</a>
-                                    <!-- <a href="#" class="card-link">Another link</a> -->
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+            <div class="row row-cols-1 g-3 justify-content-center jurnal-container" data-aos="fade-up">
+
+            </div>
+            <div class="row mt-3">
                 <div class="col">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item disabled"><a disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Cooming Soon" class="page-link" href="#">1</a></li>
-                            <li class="page-item disabled"><a disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Cooming Soon" class="page-link" href="#">2</a></li>
-                            <li class="page-item disabled"><a disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Cooming Soon" class="page-link" href="#">3</a></li>
-                            <li class="page-item disabled">
-                                <a disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Cooming Soon" class="page-link" href="#">Next</a>
-                            </li>
+                        <ul class="pagination justify-content-end halaman">
+
                         </ul>
                     </nav>
                 </div>
+
             </div>
         </div>
     </section>
 
     <section class="featured-game pt-50 pb-50">
-        <div class="container-fluid">
+        <div class="container-fluid" data-aos="flip-up" data-aos-duration="1000">
             <h2 class="text-4xl fw-bold color-palette-1 mb-10">Kritik & Saran
             </h2>
             <div class="row">
@@ -439,7 +404,7 @@ if ($results) {
                 </form>
             </div>
 
-            <p class="mt-2 "><a href="https://docs.google.com/spreadsheets/d/1ffYIvG8cFcApY_ZnNc61Al1PlT14L3HBHtIoxapHlnw/edit?usp=sharing" target="_blank">Klik disini untuk melihat kritik dan saran</a></p>
+            <p class="mt-2 text-xs color-palette-1 "><a href="https://docs.google.com/spreadsheets/d/1ffYIvG8cFcApY_ZnNc61Al1PlT14L3HBHtIoxapHlnw/edit?usp=sharing" target="_blank">Klik disini untuk melihat kritik dan saran</a></p>
         </div>
         </div>
     </section>
@@ -507,11 +472,12 @@ if ($results) {
                         </a>
                         <p class="mt-30 text-lg color-palette-1 mb-30">Politeknik Gajah Tunggal</p>
                         <p class="mt-30 text-lg color-palette-1 mb-10">Copyright <?= date('Y'); ?>. All Rights Reserved.</p>
-                        <p class="text-xs color-palette-1">Created with <i class="fas fa-heart text-danger"></i> by <a class="text-decoration-none" href="instagram.com/rikzagoldluck">rikzagoldluck</a></p>
+
+                        <p class="text-xs color-palette-1">This project now lives at <a href="https://github.com/rikzagoldluck/sisfo-poltekgt">https://github.com/rikzagoldluck/sisfo-poltekgt</a>. I turned it into a Github repo so you can, you know, contribute to it by making pull requests.</p>
                     </div>
                     <div class="col-lg-8 mt-lg-0 mt-20">
                         <div class="row gap-sm-0">
-                            <div class="col-md-4 col-6 mb-lg-0 mb-25">
+                            <!-- <div class="col-md-4 col-6 mb-lg-0 mb-25">
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">Company</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-6">
@@ -529,8 +495,12 @@ if ($results) {
                                             Policy</a>
                                     </li>
                                 </ul>
+                            </div> -->
+                            <div class="col-md-8 col-6 mb-lg-0 mb-25">
+                                <p class="text-lg fw-semibold color-palette-1 mb-12">Location</p>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.534166735406!2d106.56689061410282!3d-6.1930235623965855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fe4fc675da0f%3A0x84a0e5fc6c009127!2sPoliteknik%20Gajah%20Tunggal!5e0!3m2!1sid!2sid!4v1650796642574!5m2!1sid!2sid" width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
-                            <div class="col-md-4 col-6 mb-lg-0 mb-25">
+                            <!-- <div class="col-md-4 col-6 mb-lg-0 mb-25">
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">Support</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-6">
@@ -546,18 +516,18 @@ if ($results) {
                                             Chatting</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="col-md-4 col-12 mt-lg-0 mt-md-0 mt-25">
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">Connect</p>
                                 <ul class="list-unstyled">
+                                    <li class="mb-6">
+                                        <a href="https://poltek-gt.ac.id/v2" class="text-lg color-palette-1 text-decoration-none">official website</a>
+                                    </li>
                                     <li class="mb-6">
                                         <a href="mailto: rikzasimdigei@gmail.com" class="text-lg color-palette-1 text-decoration-none">rikzasimdigei@gmail.com</a>
                                     </li>
                                     <li class="mb-6">
                                         <a href="mailto: administrasi@poltek-gt.ac.id" class="text-lg color-palette-1 text-decoration-none">administrasi@poltek-gt.ac.id</a>
-                                    </li>
-                                    <li class="mb-6">
-                                        <a href="http://maps.google.com/?q=Politeknik Gajah Tunggal" class="text-lg color-palette-1 text-decoration-none">Jl. Gajah Tunggal No.16, RT.001/RW.002, Alam Jaya, Kec. Jatiuwung, Kota Tangerang, Banten 15133</a>
                                     </li>
                                     <li class="mb-6">
                                         <a href="tel: 02150993665" class="text-lg color-palette-1 text-decoration-none">021 – 50993665 / 021 – 50993670</a>
@@ -583,6 +553,58 @@ if ($results) {
     <script src="<?= base_url(); ?>/script.js"></script>
     <!-- AOS Animation -->
     <script>
+        $('button#button-search-jurnal').click(function() {
+            let search = $('input#searchbar-jurnal').val();
+
+            if (search === '') {
+                Swal.fire({
+                    title: "Maaf!",
+                    text: "Tolong masukkan kata kunci",
+                    icon: "warning"
+                })
+                return;
+            }
+            $('.overlay').css('display', 'block');
+            fetch("<?= base_url('home/cari_jurnal'); ?>" + `/${search}`, {
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(response => response.json())
+                .then(result => {
+                    $('.overlay').css('display', 'none');
+                    $('.jurnal-container').html('');
+
+                    let jurnals = result.organic_results
+                    $.each(jurnals, function(i, jurnal) {
+                        $('.jurnal-container').append(` <div class="col-md-6" data-aos="fade-right">
+                        <div class="card">
+                            <div class="card-body">${jurnal.title}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${jurnal.publication_info.summary}></h6>
+                                <p class="card-text">${jurnal.snippet}</p>
+                                <a href=${jurnal.link}" class="card-link">Baca Jurnal</a>
+                                <!-- <a href="#" class="card-link">Another link</a> -->
+                            </div>
+                        </div>
+                        </div>`)
+                    })
+
+                    let page = result.pagination.other_pages;
+                    // <li class="page-item disabled">
+                    //             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    //         </li>
+                    //         <li class="page-item disabled"><a disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Cooming Soon" class="page-link" href="#">1</a></li>
+                    $.each(page, function(key, value) {
+                        $('.halaman').append(
+                            `<li class="page-item"><a class="page-link" href="${value}">${key++}</a></li>`
+                        )
+
+                    })
+                })
+        })
+
         AOS.init();
 
         // isi combobox tahun masuk
@@ -602,15 +624,20 @@ if ($results) {
             select_tahun.add(opt, undefined)
             opt = '';
         }
+
         let prodi, tahun;
-        $('.select-prodi').on('change', function() {
+
+        $('.select-prodi').change(function() {
             prodi = this.value;
-            console.log(prodi)
             $('.select-tahun').prop('disabled', false);
         })
 
-        $('.select-tahun').on('change', function() {
+        $('.select-tahun').change(function() {
+            $('#overlay').css('display', 'block');
             tahun = this.value;
+
+            $('.info-ip').html(`${prodi} - ${tahun}`);
+
             fetch("<?= base_url('home/get_nilai_top'); ?>" + `/${prodi}/${tahun}`, {
                     method: "get",
                     headers: {
@@ -620,7 +647,8 @@ if ($results) {
                 })
                 .then(response => response.json())
                 .then(result => {
-                    $('#top3-card').html("#")
+                    $('#overlay').css('display', 'none');
+                    $('#top3-card').html("")
                     if (result.status === "ok") {
                         let student = result.data;
 
@@ -634,7 +662,17 @@ if ($results) {
                 </div>`)
                         })
                     }
-                }).catch(e => $('#top3-card').html('<h5 class="text-center">Data tidak ditemukan : ' + e + '</h5>'))
+                }).catch(e => {
+                    Swal.fire({
+                        title: "Maaf",
+                        text: "Data tidak ditemukan, karena" + e,
+                        icon: "error"
+                    })
+                })
+
+            $('.select-tahun').val("Pilih Tahun Masuk");
+            $('.select-prodi').val("Pilih Prodi");
+            $('.select-tahun').prop('disabled', true);
 
         })
 
